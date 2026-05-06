@@ -3,6 +3,9 @@
 # Stage 1: Builder
 FROM node:20-alpine AS builder
 
+# Instalar dependências necessárias para o Prisma
+RUN apk add --no-cache openssl libc6-compat
+
 WORKDIR /app
 
 # Copiar arquivos de dependências
@@ -26,6 +29,9 @@ RUN npm prune --production
 
 # Stage 2: Production
 FROM node:20-alpine
+
+# Instalar dependências necessárias para o Prisma
+RUN apk add --no-cache openssl libc6-compat
 
 WORKDIR /app
 

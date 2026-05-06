@@ -46,4 +46,4 @@ coverage/
 .editorconfig
 .eslintrc*
 .prettierrc*
-tsconfig.json
+# tsconfig.json - NECESSÁRIO para build do TypeScript
