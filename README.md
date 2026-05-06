@@ -1,4 +1,4 @@
-# 🔧 Backend - Sistema de Gerenciamento de Usuários
+## 🔧 Backend - Sistema de Gerenciamento de Usuários
 
 API REST para gerenciamento de usuários com autenticação JWT, desenvolvida em Node.js, TypeScript, Express e MySQL.
 
