@@ -332,7 +332,7 @@ FRONTEND_URL="http://localhost:5500"
 ## 🔗 Integração com Frontend
 
 Este backend foi projetado para ser consumido pelo frontend em:
-- **Repositório Frontend**: https://github.com/seu-usuario/user-management-frontend
+- **Repositório Frontend**: https://github.com/juramal/user-management-frontend
 
 Certifique-se de:
 1. Configurar o `FRONTEND_URL` no `.env` do backend
