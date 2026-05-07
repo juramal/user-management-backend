@@ -11,6 +11,11 @@ API REST para gerenciamento de usuários com autenticação JWT, desenvolvida em
 - **JWT** (Autenticação)
 - **bcryptjs** (Criptografia de senhas)
 - **CORS** (Integração com frontend)
+- **Winston** + **Better Stack** (Logging)
+- **Jest** + **Supertest** (Testes)
+- **ESLint** + **Prettier** (Code Quality)
+- **SonarCloud** (Análise de Código)
+- **Docker** (Containerização)
 
 ## 📋 Pré-requisitos
 
@@ -347,6 +352,213 @@ Certifique-se de:
 | `JWT_EXPIRES_IN` | Tempo de expiração do token | `7d` (7 dias) |
 | `PORT` | Porta onde a API rodará | `3000` |
 | `FRONTEND_URL` | URL do frontend para CORS | `http://localhost:5500` |
+| `LOGTAIL_SOURCE_TOKEN` | Token do Better Stack para logs | `xxxxxxxxxxxxxxxxxx` |
+| `LOG_LEVEL` | Nível de log (debug, info, warn, error) | `info` |
+| `NODE_ENV` | Ambiente (development, production, test) | `development` |
+
+## 🧪 Testes
+
+### Rodando os Testes
+
+```bash
+# Rodar todos os testes
+npm test
+
+# Rodar em modo watch (recarrega ao salvar)
+npm run test:watch
+
+# Rodar para CI com coverage
+npm run test:ci
+```
+
+### Visualizar Coverage
+
+Após rodar os testes, abra o relatório de cobertura:
+
+```bash
+# Windows
+start coverage/lcov-report/index.html
+
+# Linux/Mac
+open coverage/lcov-report/index.html
+```
+
+### Estrutura de Testes
+
+```
+src/
+├── __tests__/
+│   └── health.test.ts    # Testes de exemplo
+├── routes/
+└── middlewares/
+```
+
+## 📊 Qualidade de Código
+
+### Linting
+
+```bash
+# Verificar problemas de código
+npm run lint
+
+# Corrigir problemas automaticamente
+npm run lint:fix
+```
+
+### Formatação
+
+```bash
+# Formatar todo o código
+npm run format
+```
+
+### SonarCloud
+
+Este projeto está integrado com [SonarCloud](https://sonarcloud.io/) para análise contínua de qualidade:
+
+- ✅ Detecção de bugs e vulnerabilidades
+- ✅ Code smells e débito técnico
+- ✅ Cobertura de testes
+- ✅ Complexidade ciclomática
+
+**Configuração**: Veja [CICD_SETUP_GUIDE.md](../CICD_SETUP_GUIDE.md#configuração-do-sonarcloud)
+
+## 📡 Logging e Monitoramento
+
+### Better Stack (Logtail)
+
+Este projeto usa [Better Stack](https://betterstack.com/) para centralização de logs:
+
+```typescript
+import logger from './utils/logger';
+
+// Logs com diferentes níveis
+logger.info('Servidor iniciado', { port: 3000 });
+logger.warn('Tentativa de acesso não autorizado', { ip: '192.168.1.1' });
+logger.error('Erro ao conectar ao banco', { error: error.message });
+```
+
+**Recursos**:
+- 📝 Logs estruturados em JSON
+- 🔍 Busca e filtragem avançada
+- 📊 Dashboards customizáveis
+- 🚨 Alertas em tempo real
+
+**Configuração**: Veja [CICD_SETUP_GUIDE.md](../CICD_SETUP_GUIDE.md#configuração-do-better-stack-logtail)
+
+### Níveis de Log
+
+| Nível | Uso |
+|-------|-----|
+| `error` | Erros críticos que impedem o funcionamento |
+| `warn` | Situações suspeitas ou não ideais |
+| `info` | Informações gerais de funcionamento |
+| `debug` | Informações detalhadas para debugging |
+
+## 🚀 CI/CD e Deploy
+
+### GitHub Actions
+
+Este projeto possui 3 workflows automatizados:
+
+#### 1. **CI (Continuous Integration)**
+- ✅ Testes automatizados (Node 18.x e 20.x)
+- ✅ Build TypeScript
+- ✅ Análise SonarCloud
+- ✅ Coverage report
+
+**Trigger**: Push ou PR em `main` e `develop`
+
+#### 2. **Release (Semantic Release)**
+- ✅ Versionamento automático
+- ✅ Geração de CHANGELOG
+- ✅ Criação de GitHub Releases
+- ✅ Tags git automáticas
+
+**Trigger**: Push em `main` (após merge)
+
+#### 3. **Docker Build & Push**
+- ✅ Build multi-plataforma (amd64, arm64)
+- ✅ Push para Docker Hub
+- ✅ Tags múltiplas (latest, v1, v1.1, v1.1.0)
+
+**Trigger**: Criação de tags de versão
+
+### Docker
+
+#### Desenvolvimento Local
+
+```bash
+# Subir backend + MySQL
+docker compose up
+
+# Parar containers
+docker compose down
+
+# Ver logs
+docker compose logs -f backend
+```
+
+#### Build Manual
+
+```bash
+# Build da imagem
+docker build -t user-management-backend .
+
+# Rodar container
+docker run -p 3000:3000 \
+  -e DATABASE_URL="mysql://..." \
+  -e JWT_SECRET="..." \
+  user-management-backend
+```
+
+#### Usar Imagem do Docker Hub
+
+```bash
+docker pull juramal/user-management-backend:latest
+```
+
+### Conventional Commits
+
+Para o versionamento automático funcionar, use commits convencionais:
+
+```bash
+# Patch (1.0.0 → 1.0.1)
+git commit -m "fix: corrigir validação de email"
+
+# Minor (1.0.0 → 1.1.0)
+git commit -m "feat: adicionar endpoint de recuperação de senha"
+
+# Major (1.0.0 → 2.0.0)
+git commit -m "feat!: remover suporte a autenticação básica
+
+BREAKING CHANGE: agora apenas JWT é suportado"
+
+# Outros (não geram release)
+git commit -m "docs: atualizar README"
+git commit -m "chore: atualizar dependências"
+git commit -m "style: formatar código"
+```
+
+**Documentação completa**: [CICD_SETUP_GUIDE.md](../CICD_SETUP_GUIDE.md)
+
+## 📦 Tecnologias e Ferramentas
+
+### Produção
+- Node.js 20 + TypeScript 5.9
+- Express 4.18
+- Prisma 5.11 (MySQL)
+- JWT + bcryptjs
+- Winston + Better Stack
+- Docker + Docker Compose
+
+### Desenvolvimento
+- Jest + Supertest (testes)
+- ESLint + Prettier (linting)
+- ts-node-dev (hot reload)
+- SonarCloud (qualidade)
+- GitHub Actions (CI/CD)
+- Semantic Release (versionamento)
 
 ## 📄 Licença
 

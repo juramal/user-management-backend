@@ -16,6 +16,8 @@ services:
       - JWT_EXPIRES_IN=7d
       - PORT=3000
       - FRONTEND_URL=http://localhost:5500
+      - LOGTAIL_SOURCE_TOKEN=${LOGTAIL_SOURCE_TOKEN:-}
+      - LOG_LEVEL=info
     depends_on:
       mysql:
         condition: service_healthy
