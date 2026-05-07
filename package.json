@@ -1,6 +1,6 @@
 {
   "name": "user-management-backend",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "API REST para gerenciamento de usuários com autenticação JWT",
   "main": "dist/server.js",
   "scripts": {
@@ -15,7 +15,14 @@
     "lint": "echo \"Warning: no linter configured yet\"",
     "format": "echo \"Warning: no formatter configured yet\""
   },
-  "keywords": ["typescript", "express", "prisma", "jwt", "mysql", "api"],
+  "keywords": [
+    "typescript",
+    "express",
+    "prisma",
+    "jwt",
+    "mysql",
+    "api"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
