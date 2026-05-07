@@ -27,7 +27,7 @@ API REST para gerenciamento de usuários com autenticação JWT, desenvolvida em
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/user-management-backend.git
+git clone https://github.com/juramal/user-management-backend.git
 cd user-management-backend
 ```
 
